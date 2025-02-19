@@ -1,0 +1,233 @@
+﻿unite_burgundies_effect = {
+	add_prestige = major_prestige_gain
+	save_scope_as = scoped_ruler
+	
+	hidden_effect = {
+		# add flag for cb
+		add_character_flag = flag_unite_burgundy
+		# de jure changes
+		title:d_burgundy = {
+			set_de_jure_liege_title = title:k_burgundy
+		}
+		if = {
+			limit = {
+				has_game_rule = one_burgundy_duchy
+			}
+			title:d_upper_burgundy = {
+				every_de_jure_county = {
+					set_de_jure_liege_title = title:d_burgundy
+				}
+			}
+			destroy_title = title:d_upper_burgundy
+		}
+	}
+	if = {
+		limit = {
+			is_independent_ruler = no
+		}
+		liege = { save_scope_as = former_liege }
+		# gain independence
+		create_title_and_vassal_change = {
+			type = independency
+			save_scope_as = change
+			add_claim_on_loss = no
+		}
+		change_liege_or_become_independent = {
+			CHANGE = scope:change
+			VASSAL = this
+		}
+		hidden_effect = {
+			add_truce_both_ways = {
+				character = scope:former_liege
+				days = 1825
+				name = TRUCE_GRANT_INDEPENDENCE_ROOT
+			}
+		}
+		resolve_title_and_vassal_change = scope:change
+	}
+	# claim the burgundy kings title if already taken
+	if = {
+		limit = {
+			exists = title:k_burgundy.holder
+		}
+		# make the current burgundy king mad
+		title:k_burgundy.holder = {
+			add_opinion = {
+				target = scope:scoped_ruler
+				modifier = pretender_opinion
+			}
+		}
+		# gain pressed claim
+		add_pressed_claim = title:k_burgundy
+		# give former liege claims on your duchies
+		if = {
+			limit = {
+				exists = scope:former_liege
+			}
+			scope:former_liege = {
+				add_unpressed_claim = title:d_burgundy
+				if = {
+					limit = {
+						has_game_rule = two_burgundy_duchies
+					}
+					add_unpressed_claim = title:d_upper_burgundy
+				}
+				add_prestige = major_prestige_loss
+				add_opinion = {
+					target = scope:scoped_ruler
+					modifier = pretender_opinion
+				}
+			}
+		}
+	}
+	# gain burgundy king title
+	else = {
+		# Gain Burgundy
+		create_title_and_vassal_change = {
+			type = created
+			save_scope_as = new_burgundy
+			add_claim_on_loss = no
+		}
+		title:k_burgundy = {
+			change_title_holder = {
+				holder = root
+				change = scope:new_burgundy
+			}
+		}
+		resolve_title_and_vassal_change = scope:new_burgundy
+		# give former liege claims on your kingdom
+		if = {
+			limit = {
+				exists = scope:former_liege
+			}
+			scope:former_liege = {
+				add_unpressed_claim = title:k_burgundy
+				add_prestige = major_prestige_loss
+				add_opinion = {
+					target = scope:scoped_ruler
+					modifier = pretender_opinion
+				}
+			}
+		}
+	}
+	# cb tooltip
+	custom_tooltip = better_unite_burgundies.cb
+	# generate troops
+	spawn_army = {
+		levies = 1800
+		men_at_arms = {
+			type = bowmen
+			men = 200
+		}
+		men_at_arms = {
+			type = light_footmen
+			men = 400
+		}
+		men_at_arms = {
+			type = pikemen_unit
+			men = 400
+		}
+		men_at_arms = {
+			type = light_horsemen
+			men = 200
+		}
+		location = root.capital_province
+		name = burgundian_loyalists
+		inheritable = no
+	}
+}
+
+diverge_burgundy_culture_effect = {
+	culture = { save_scope_as = old_culture }
+	create_divergent_culture = yes
+	culture = { save_scope_as = new_culture }
+	hidden_effect = {
+		add_character_flag = converted_culture_this_lifetime
+	}
+	# set ethos
+	scope:new_culture = {
+		if = {
+			limit = {
+				exists = scope:choose_ethos_bellicose
+			}
+			set_culture_pillar = ethos_bellicose
+		}
+		else_if = {
+			limit = {
+				exists = scope:choose_ethos_stoic
+			}
+			set_culture_pillar = ethos_stoic
+		}
+		else_if = {
+			limit = {
+				exists = scope:choose_ethos_bureaucratic
+			}
+			set_culture_pillar = ethos_bureaucratic
+		}
+		else_if = {
+			limit = {
+				exists = scope:choose_ethos_spiritual
+			}
+			set_culture_pillar = ethos_spiritual
+		}
+		else_if = {
+			limit = {
+				exists = scope:choose_ethos_courtly
+			}
+			set_culture_pillar = ethos_courtly
+		}
+		else_if = {
+			limit = {
+				exists = scope:choose_ethos_egalitarian
+			}
+			set_culture_pillar = ethos_egalitarian
+		}
+		else_if = {
+			limit = {
+				exists = scope:choose_ethos_communal
+			}
+			set_culture_pillar = ethos_communal
+		}
+	}
+	# convert region
+	every_county_in_region  = {
+		region = custom_core_burgundy
+		save_scope_as = county
+		holder = {
+			send_interface_message = {
+				title = better_unite_burgundies_county_converted_culture
+				scope:county = {
+					set_county_culture = scope:new_culture
+				}
+			}
+		}
+	}
+	# give vassal chance to convert
+	convert_family_culture_and_notify_vassals_effect = {
+		CONVERTER = root
+		OLD_CULTURE = scope:old_culture
+		NEW_CULTURE = scope:new_culture
+	}
+	# convert french culture enclave if game rules allow
+	if = {
+		limit = {
+			has_game_rule = no_french_culture_enclave
+		}
+		title:d_savoie = {
+			every_de_jure_county = {
+				limit = {
+					culture = culture:french
+				}
+				set_county_culture = culture:occitan
+			}
+		}
+		title:d_dauphine = {
+			every_de_jure_county = {
+				limit = {
+					culture = culture:french
+				}
+				set_county_culture = culture:occitan
+			}
+		}
+	}
+}

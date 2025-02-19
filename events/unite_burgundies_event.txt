@@ -1,0 +1,237 @@
+﻿namespace = better_unite_burgundies
+
+# united as a vassal
+better_unite_burgundies.0001 = {
+	type = character_event
+	title = middle_europe_decisions.0007.t
+	desc = middle_europe_decisions.0007.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_bold
+	}
+	right_portrait = {
+		character = scope:former_liege
+		animation = shock
+	}
+	
+	immediate = {
+		play_music_cue = "mx_cue_epic_sacral_moment"
+		unite_burgundies_effect = yes
+		legend_seed_great_deed_title_effect = {
+			TITLE = root.primary_title
+		}
+	}
+	
+	option = {
+		name = better_unite_burgundies.united
+		# Send narrative fluff to other players (if any).
+		every_player = {
+			limit = {
+				NOT = { this = root }
+				top_liege = scope:former_liege
+			}
+			trigger_event = middle_europe_decisions.0008
+		}
+		if = {
+			limit = {
+				has_dlc_feature = diverge_culture
+				culture = { has_cultural_pillar = heritage_frankish }
+			}
+			trigger_event = {
+				id = better_unite_burgundies.0003
+				days = { 10 30 }
+			}
+		}
+	}
+}
+
+# united as an independent
+better_unite_burgundies.0002 = {
+	type = character_event
+	title = middle_europe_decisions.0007.t
+	desc = middle_europe_decisions.0007.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_bold
+	}
+	
+	immediate = {
+		play_music_cue = "mx_cue_epic_sacral_moment"
+		unite_burgundies_effect = yes
+		legend_seed_great_deed_title_effect = {
+			TITLE = root.primary_title
+		}
+	}
+	
+	option = {
+		name = better_unite_burgundies.united
+		# Send narrative fluff to other players (if any).
+		every_player = {
+			limit = {
+				NOT = { this = root }
+				top_liege = scope:former_liege
+			}
+			trigger_event = middle_europe_decisions.0008
+		}
+		if = {
+			limit = {
+				has_dlc_feature = diverge_culture
+				culture = { has_cultural_pillar = heritage_frankish }
+			}
+			trigger_event = {
+				id = better_unite_burgundies.0003
+				days = { 10 30 }
+			}
+		}
+	}
+}
+
+# offer culture diverge
+better_unite_burgundies.0003 = {
+	type = character_event
+	title = better_unite_burgundies.0003.t
+	desc = better_unite_burgundies.0003.desc
+	theme = culture_change
+	
+	left_portrait = {
+		character = root
+		animation = thinking
+	}
+	
+	immediate = {
+		save_scope_as = convertee
+	}
+	
+	option = {
+		name = better_unite_burgundies.0003.a
+		custom_tooltip = better_unite_burgundies.0003.a.diverge
+		custom_tooltip = better_unite_burgundies.0003.a.ethos
+		trigger_event = better_unite_burgundies.0004
+		ai_chance = {
+			# AI should always do this
+			base = 100
+		}
+	}
+	
+	option = {
+		name = better_unite_burgundies.0003.b
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+better_unite_burgundies.0004 = {
+	type = character_event
+	title = better_unite_burgundies.0004.t
+	desc = better_unite_burgundies.0004.desc
+	theme = culture_change
+	
+	right_portrait = {
+		character = root
+		animation = thinking
+	}
+	
+	option = {
+		name = better_unite_burgundies.0004.a
+		custom_tooltip = better_unite_burgundies.0004.a.tooltip
+		save_scope_value_as = {
+			name = choose_ethos_spiritual
+			value = yes
+		}
+		trigger_event = better_unite_burgundies.0005
+		ai_chance = {
+			base = 15
+		}
+	}
+	
+	option = {
+		name = better_unite_burgundies.0004.b
+		custom_tooltip = better_unite_burgundies.0004.b.tooltip
+		save_scope_value_as = {
+			name = choose_ethos_bellicose
+			value = yes
+		}
+		trigger_event = better_unite_burgundies.0005
+		ai_chance = {
+			base = 15
+		}
+	}
+	
+	option = {
+		name = better_unite_burgundies.0004.c
+		custom_tooltip = better_unite_burgundies.0004.c.tooltip
+		save_scope_value_as = {
+			name = choose_ethos_stoic
+			value = yes
+		}
+		trigger_event = better_unite_burgundies.0005
+		ai_chance = {
+			base = 15
+		}
+	}
+	
+	option = {
+		name = better_unite_burgundies.0004.d
+		custom_tooltip = better_unite_burgundies.0004.d.tooltip
+		save_scope_value_as = {
+			name = choose_ethos_bureaucratic
+			value = yes
+		}
+		trigger_event = better_unite_burgundies.0005
+		ai_chance = {
+			base = 15
+		}
+	}
+	
+	option = {
+		name = better_unite_burgundies.0004.e
+		custom_tooltip = better_unite_burgundies.0004.e.tooltip
+		save_scope_value_as = {
+			name = choose_ethos_courtly
+			value = yes
+		}
+		trigger_event = better_unite_burgundies.0005
+		ai_chance = {
+			base = 15
+		}
+	}
+	
+	option = {
+		name = better_unite_burgundies.0004.f
+		custom_tooltip = better_unite_burgundies.0004.f.tooltip
+		save_scope_value_as = {
+			name = choose_ethos_egalitarian
+			value = yes
+		}
+		trigger_event = better_unite_burgundies.0005
+		ai_chance = {
+			base = 15
+		}
+	}
+	
+	option = {
+		name = better_unite_burgundies.0004.g
+		custom_tooltip = better_unite_burgundies.0004.g.tooltip
+		save_scope_value_as = {
+			name = choose_ethos_communal
+			value = yes
+		}
+		trigger_event = better_unite_burgundies.0005
+		ai_chance = {
+			base = 15
+		}
+	}
+}
+
+
+# hidden event to do work without showing tooltip
+better_unite_burgundies.0005 = {
+	scope = none
+	hidden = yes
+	immediate = {
+		diverge_burgundy_culture_effect = yes
+	}
+}

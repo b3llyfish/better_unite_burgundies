@@ -1,0 +1,3 @@
+﻿declared_unite_burgundy_war_flag_tt = {
+	first_not = declared_unite_burgundy_war_flag_tt
+}

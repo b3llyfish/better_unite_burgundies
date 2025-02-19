@@ -1,0 +1,21 @@
+﻿better_unite_burgundies_duchies = {
+	
+	categories = { tweaks }
+	
+	default = one_burgundy_duchy
+	
+	one_burgundy_duchy = {}
+	
+	two_burgundy_duchies = {}
+}
+
+better_unite_burgundies_french_culture_enclave = {
+	
+	categories = { tweaks }
+	
+	default = no_french_culture_enclave
+	
+	no_french_culture_enclave = {}
+	
+	allow_french_culture_enclave = {}
+}

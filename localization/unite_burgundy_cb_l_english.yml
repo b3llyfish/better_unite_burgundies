@@ -1,0 +1,6 @@
+﻿l_english:
+ msg_de_jure_unite_burgundy_war_invalidated_message: "The [war.GetName] has ended: [defender.GetShortUIName] no longer [Select_CString( defender.IsLocalPlayer, 'control', 'controls' )] any land within the Burgundy kingdom."
+ msg_de_jure_unite_burgundy_war_invalidated_liege_war_message: "The [war.GetName] has ended: [Select_CString( attacker.IsLocalPlayer, 'You', attacker.GetShortUIName )] have joined [Select_CString( attacker.IsLocalPlayer, 'your', attacker.GetHerHis )] liege's war against [Select_CString( defender.IsLocalPlayer, 'you', defender.GetShortUIName )]."
+ unite_burgundy_cb_name: "Unite the [de_jure|E] $burgundian_name$ [kingdom|E]"
+ unite_burgundy_cb_name_generic: "Unite the [de_jure|E] $burgundian_name$ [kingdom|E]"
+ declared_unite_burgundy_war_flag_tt: "You may only attempt the Unite Burgundy war once"

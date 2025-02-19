@@ -1,0 +1,74 @@
+﻿unify_burgundy_kingdom_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_found_kingdom.dds"
+	}
+	ai_check_interval = 0
+	is_shown = {
+		always = no
+	}
+	effect = {
+		trigger_event = {
+			# stop orphan error log
+			id = middle_europe_decisions.0007
+		}
+	}
+}
+
+#Uniting the Burgundies
+better_unify_burgundy_kingdom_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_found_kingdom.dds"
+	}
+	desc = unify_burgundy_kingdom_decision_desc
+	selection_tooltip = unify_burgundy_kingdom_decision_tooltip
+	decision_group_type = major
+	ai_goal = yes
+	
+	is_shown = {
+		culture = { has_cultural_pillar = heritage_frankish }
+		is_ruler = yes
+		is_playable_character = yes
+		highest_held_title_tier < tier_kingdom
+		capital_province = { geographical_region = custom_core_burgundy }
+	}
+	
+	is_valid = {
+		prestige_level >= high_prestige_level
+		highest_held_title_tier <= tier_duchy
+		completely_controls_region = custom_core_burgundy
+	}
+	
+	is_valid_showing_failures_only = {
+		is_capable_adult = yes
+		is_imprisoned = no
+		is_at_war = no
+	}
+	
+	effect = {
+		gain_heroic_legend_seed_tooltip_effect = yes
+		show_as_tooltip = {
+			unite_burgundies_effect = yes
+		}
+		if = {
+			limit = {
+				is_independent_ruler = no
+			}
+			liege = { save_scope_as = former_liege }
+			trigger_event = better_unite_burgundies.0001
+		}
+		else = {
+			# assign scope so we can reuse middle_europe_decisions.0008
+			this = { save_scope_as = former_liege }
+			trigger_event = better_unite_burgundies.0002
+		}
+		
+	}
+	
+	ai_potential = {
+		always = yes
+	}
+	
+	ai_will_do = {
+		base = 100
+	}
+}

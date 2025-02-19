@@ -1,0 +1,5 @@
+﻿custom_core_burgundy = {
+	duchies = {
+		d_burgundy d_upper_burgundy
+	}
+}

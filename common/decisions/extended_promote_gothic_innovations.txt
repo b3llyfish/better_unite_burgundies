@@ -1,0 +1,104 @@
+﻿#Little Medieval French Renaissance.
+promote_gothic_innovations_decision = { #12th century Renaissance
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_misc.dds"
+	}
+	desc = promote_gothic_innovations_decision_desc
+	selection_tooltip = promote_gothic_innovations_decision_tooltip
+	decision_group_type = major
+	ai_goal = yes
+	
+	is_shown = {
+		OR = {
+			culture = { has_cultural_pillar = heritage_latin }
+			culture = { has_cultural_pillar = heritage_frankish }
+		}
+		NOT = { has_culture = culture:italian }
+		is_ruler = yes
+		is_landed = yes
+		root.culture = {
+			has_cultural_era_or_later = culture_era_early_medieval
+		}
+		NOT = {  #Can only do it once.
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:flag_promoted_gothic_innovations
+			}
+		}
+		highest_held_title_tier >= 4 #Kings and Emperors only.
+		OR = {
+			has_title = title:k_france
+			has_title = title:e_france
+			has_title = title:k_burgundy
+		}
+		NOR = {
+			government_has_flag = government_is_theocracy
+			government_has_flag = government_is_clan
+			government_has_flag = government_is_tribal
+		}
+	}
+	
+	is_valid = {
+		prestige_level >= 4
+		learning >= 10
+		NOT = { has_realm_law = crown_authority_0 }
+		#Must control core provinces either in the North or the South:
+		OR = {
+			AND = {
+				completely_controls = title:d_valois
+				completely_controls = title:d_orleans
+			}
+			AND = {
+				completely_controls = title:d_provence
+				completely_controls = title:d_toulouse
+			}
+			AND = {
+				completely_controls = title:d_burgundy
+				completely_controls = title:d_provence
+			}
+		}
+		#Must have basic innovations:
+		root.culture = {
+			has_innovation = innovation_royal_prerogative
+			has_innovation = innovation_knighthood
+			has_innovation = innovation_windmills
+		}
+	}
+	
+	is_valid_showing_failures_only = {
+		is_capable_adult = yes
+		is_imprisoned = no
+		is_at_war = no
+	}
+	
+	cost = {
+		gold = 500
+		prestige = 3000
+	}
+	
+	effect = {
+		show_as_tooltip = {
+			promote_gothic_innovations_decision_scripted_effect = yes
+		}
+		trigger_event = {
+			id = middle_europe_decisions.0012
+		}
+		hidden_effect = {
+			add_to_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:flag_promoted_gothic_innovations
+			}
+		}
+	}
+	
+	ai_potential = {
+		always = yes
+	}
+	
+	ai_will_do = {
+		base = 15
+		ai_value_modifier = {
+			ai_boldness = 1.0
+		}
+	}
+}

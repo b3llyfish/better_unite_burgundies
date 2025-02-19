@@ -1,0 +1,12 @@
+﻿l_english:
+ rule_better_unite_burgundies_duchies: "Better Unite Burgundy: Combine Duchies"
+ setting_one_burgundy_duchy: "Combine"
+ setting_one_burgundy_duchy_desc: "The decision will combine the Burgundy and Upper Burgundy duchies into a single duchy"
+ setting_two_burgundy_duchies: "No Change"
+ setting_two_burgundy_duchies_desc: "The decision will not make any changes to the involved duchies"
+ 
+ rule_better_unite_burgundies_french_culture_enclave: "Better Unite Burgundy: French Culture Enclave"
+ setting_no_french_culture_enclave: "No French Culture Enclave"
+ setting_no_french_culture_enclave_desc: "Any french cultured enclave created by diverging culture will be converted to Occitan"
+ setting_allow_french_culture_enclave: "Allow French Culture Enclave"
+ setting_allow_french_culture_enclave_desc: "Any french cultured enclave created by diverging culture will not be converted"
